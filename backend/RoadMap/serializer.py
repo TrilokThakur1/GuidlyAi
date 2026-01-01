@@ -1,0 +1,23 @@
+from rest_framework import serializers  
+
+class RoadMapStepSerializer(serializers.Serializer):
+    stepTitle = serializers.CharField()
+    stepDesc = serializers.CharField()
+    stepEstimatedTime = serializers.CharField()
+
+class BookSerializer(serializers.Serializer):
+    bookTitle = serializers.CharField()
+    bookAuthor = serializers.CharField()
+    bookDesc = serializers.CharField()
+
+class ResourceSerializer(serializers.Serializer):
+    books = BookSerializer(many=True)
+    videos = serializers.ListField(child=serializers.URLField())
+
+class RoadMapSerializer(serializers.Serializer):
+    greetings = serializers.CharField()
+    roadmapTitle = serializers.CharField()
+    roadmapDesc = serializers.CharField()
+    roadmapSteps = RoadMapStepSerializer(many=True)
+    resources = ResourceSerializer()
+    lastWords = serializers.CharField()
